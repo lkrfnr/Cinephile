@@ -5,23 +5,27 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(
+
+@Entity
+data class Comment(
+
+    @PrimaryKey
+    @ColumnInfo(name = "comment_id") val commentId:Long,
+    @ColumnInfo(name = "film_owner_id") val filmOwnerId:Long,
+    @ColumnInfo(name = "user_owner_id") val userOwnerId: Long,
+    @ColumnInfo(name = "comment_text") val commentText: String,
+    @ColumnInfo(name = "comment_like_count") val commentLikeCount: Int,
+    @ColumnInfo(name = "comment_dislike_count") val commentDislikeCount: Int,
+    @ColumnInfo(name = "date") val date: String
+
+)
+
+
+/*@Entity(
     foreignKeys = [ForeignKey(
     entity = User::class,
     parentColumns = arrayOf("user_id"),
     childColumns = arrayOf("user_id_fk"),
     onDelete = ForeignKey.CASCADE
     )]
-)
-
-data class Comment(
-    @PrimaryKey
-    val comment_id:Int,
-    @ColumnInfo(name = "user_id_fk")
-    val user_id: Int,
-    val film_id: Int,
-    val comment_text: String,
-    val comment_like_count: Int,
-    val comment_dislike_count: Int,
-    val date: String
-    )
+)*/
