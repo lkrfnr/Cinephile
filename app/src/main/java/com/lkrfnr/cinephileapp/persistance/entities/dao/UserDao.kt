@@ -1,11 +1,12 @@
-package com.lkrfnr.cinephileapp.entities.dao
+package com.lkrfnr.cinephileapp.persistance.entities.dao
 
 import androidx.room.*
-import com.lkrfnr.cinephileapp.entities.Comment
-import com.lkrfnr.cinephileapp.entities.User
-import com.lkrfnr.cinephileapp.entities.WatchLater
-import com.lkrfnr.cinephileapp.entities.relations.UserWithComments
-import com.lkrfnr.cinephileapp.entities.relations.UserWithWatchLaters
+import com.lkrfnr.cinephileapp.persistance.entities.Comment
+import com.lkrfnr.cinephileapp.persistance.entities.User
+import com.lkrfnr.cinephileapp.persistance.entities.WatchLater
+import com.lkrfnr.cinephileapp.persistance.entities.relations.UserWithComments
+import com.lkrfnr.cinephileapp.persistance.entities.relations.UserWithWatchLaters
+
 
 @Dao
 interface UserDao {

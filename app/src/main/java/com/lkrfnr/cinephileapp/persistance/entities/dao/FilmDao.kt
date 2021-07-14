@@ -1,9 +1,10 @@
-package com.lkrfnr.cinephileapp.entities.dao
+package com.lkrfnr.cinephileapp.persistance.entities.dao
 
 import androidx.room.*
-import com.lkrfnr.cinephileapp.entities.Film
-import com.lkrfnr.cinephileapp.entities.relations.FilmWithComments
-import com.lkrfnr.cinephileapp.entities.relations.FilmWithWatchLaters
+import com.lkrfnr.cinephileapp.persistance.entities.Film
+import com.lkrfnr.cinephileapp.persistance.entities.relations.FilmWithComments
+import com.lkrfnr.cinephileapp.persistance.entities.relations.FilmWithWatchLaters
+
 @Dao
 interface FilmDao {
 

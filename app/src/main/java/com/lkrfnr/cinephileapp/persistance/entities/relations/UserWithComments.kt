@@ -1,10 +1,10 @@
-package com.lkrfnr.cinephileapp.entities.relations
+package com.lkrfnr.cinephileapp.persistance.entities.relations
 
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.lkrfnr.cinephileapp.entities.Comment
-import com.lkrfnr.cinephileapp.entities.User
+import com.lkrfnr.cinephileapp.persistance.entities.Comment
+import com.lkrfnr.cinephileapp.persistance.entities.User
 
 // this should not be an entity because it is a relation..
 data class UserWithComments(

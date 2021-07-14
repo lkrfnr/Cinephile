@@ -1,9 +1,9 @@
-package com.lkrfnr.cinephileapp.entities.relations
+package com.lkrfnr.cinephileapp.persistance.entities.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.lkrfnr.cinephileapp.entities.Film
-import com.lkrfnr.cinephileapp.entities.WatchLater
+import com.lkrfnr.cinephileapp.persistance.entities.Film
+import com.lkrfnr.cinephileapp.persistance.entities.WatchLater
 
 data class FilmWithWatchLaters(
 

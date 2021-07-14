@@ -1,16 +1,15 @@
-package com.lkrfnr.cinephileapp
+package com.lkrfnr.cinephileapp.persistance
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.lkrfnr.cinephileapp.entities.Comment
-import com.lkrfnr.cinephileapp.entities.Film
-import com.lkrfnr.cinephileapp.entities.User
-import com.lkrfnr.cinephileapp.entities.WatchLater
-import com.lkrfnr.cinephileapp.entities.dao.FilmDao
-import com.lkrfnr.cinephileapp.entities.dao.UserDao
-import java.security.AccessControlContext
+import com.lkrfnr.cinephileapp.persistance.entities.Comment
+import com.lkrfnr.cinephileapp.persistance.entities.Film
+import com.lkrfnr.cinephileapp.persistance.entities.User
+import com.lkrfnr.cinephileapp.persistance.entities.WatchLater
+import com.lkrfnr.cinephileapp.persistance.entities.dao.FilmDao
+import com.lkrfnr.cinephileapp.persistance.entities.dao.UserDao
 
 @Database(
 

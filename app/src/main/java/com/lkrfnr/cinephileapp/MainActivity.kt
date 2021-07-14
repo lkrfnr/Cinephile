@@ -3,9 +3,10 @@ package com.lkrfnr.cinephileapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.lkrfnr.cinephileapp.entities.User
-import com.lkrfnr.cinephileapp.entities.dao.FilmDao
-import com.lkrfnr.cinephileapp.entities.dao.UserDao
+import com.lkrfnr.cinephileapp.persistance.LocalDatabase
+import com.lkrfnr.cinephileapp.persistance.entities.User
+import com.lkrfnr.cinephileapp.persistance.entities.dao.FilmDao
+import com.lkrfnr.cinephileapp.persistance.entities.dao.UserDao
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {

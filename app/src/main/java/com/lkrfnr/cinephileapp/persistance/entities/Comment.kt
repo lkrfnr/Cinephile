@@ -1,8 +1,7 @@
-package com.lkrfnr.cinephileapp.entities
+package com.lkrfnr.cinephileapp.persistance.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 
