@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.lkrfnr.cinephileapp.HomeFragment"
+        android:name="com.lkrfnr.cinephileapp.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/filmFragment"
-        android:name="com.lkrfnr.cinephileapp.FilmFragment"
+        android:name="com.lkrfnr.cinephileapp.ui.FilmFragment"
         android:label="fragment_film"
         tools:layout="@layout/fragment_film" />
 </navigation>
