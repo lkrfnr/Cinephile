@@ -26,8 +26,8 @@ import com.lkrfnr.cinephileapp.persistance.entities.dao.UserDao
 )
 abstract class LocalDatabase : RoomDatabase() {
 
-    abstract val userDao: UserDao
-    abstract val filmDao: FilmDao
+    abstract fun userDao(): UserDao
+    abstract fun filmDao(): FilmDao
 
     companion object{
 

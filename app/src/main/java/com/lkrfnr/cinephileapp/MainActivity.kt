@@ -16,13 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         val localDatabase : LocalDatabase = LocalDatabase.getInstance(this)
 
-        val userDao : UserDao = localDatabase.userDao
-        val filmDao : FilmDao = localDatabase.filmDao
-
         val user : User = User(1,"ilker", "lkrfnr@gmail.com","I am Jr. Android Developer", "my description")
 
-        lifecycleScope.launch{
-            userDao.insertUser(user)
-        }
     }
 }
