@@ -10,17 +10,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.lkrfnr.cinephileapp.R
 import com.lkrfnr.cinephileapp.databinding.FragmentHomeBinding
-import com.lkrfnr.cinephileapp.network.RetrofitClient
-import com.lkrfnr.cinephileapp.network.model.movie.moviepopular.MoviePopularBase
 import com.lkrfnr.cinephileapp.network.model.movie.moviepopular.MoviePopularResult
-import com.lkrfnr.cinephileapp.network.services.movie.MoviePopularService
-import com.lkrfnr.cinephileapp.persistance.LocalDatabase
+import com.lkrfnr.cinephileapp.network.model.search.SearchMovieResult
 import com.lkrfnr.cinephileapp.viewmodel.HomeViewModel
-import com.lkrfnr.cinephileapp.viewmodel.HomeViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
 
 class HomeFragment : Fragment() {
 
@@ -45,20 +40,21 @@ class HomeFragment : Fragment() {
 
         // init home view model
         activity?.let { activity ->
-            homeViewModel = ViewModelProvider(
-                    activity,
-                    HomeViewModelFactory(
-                            LocalDatabase.getInstance(activity.applicationContext)
-                    )
-            ).get(HomeViewModel::class.java)
+            homeViewModel = ViewModelProvider(activity).get(HomeViewModel::class.java)
         } ?: throw AssertionError("Unable to get parent activity from fragment")
 
-
         GlobalScope.launch(Dispatchers.IO) {
-            val list : List<MoviePopularResult>  =  homeViewModel.getPopularMovies()
+            val popularMovies : List<MoviePopularResult>  =  homeViewModel.getPopularMovies()
 
-            for( item in list )
-                Log.i(TAG, item.title)
+            for( item in popularMovies )
+                Log.i(TAG, item.title + "\n" + item.posterPath + "\n")
+
+            val searchResultList : List<SearchMovieResult> = homeViewModel.searchMovie("second war")
+
+            Log.i(TAG, "\n" + "---------------------------------------" + "\n")
+
+            for( item in searchResultList)
+                Log.i(TAG, item.title + "\n" + item.poster_path + "\n")
 
         }
 

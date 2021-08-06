@@ -34,7 +34,7 @@ abstract class LocalDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: LocalDatabase? = null
 
-        fun getInstance(context: Context) : LocalDatabase{
+        fun init(context: Context) : LocalDatabase{
 
             synchronized(this){
 

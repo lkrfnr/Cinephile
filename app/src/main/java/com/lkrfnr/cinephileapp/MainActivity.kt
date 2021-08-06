@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val localDatabase : LocalDatabase = LocalDatabase.getInstance(this)
+        val localDatabase : LocalDatabase = LocalDatabase.init(this)
 
         val user : User = User(1,"ilker", "lkrfnr@gmail.com","I am Jr. Android Developer", "my description")
 
