@@ -4,8 +4,8 @@
     <!-- Home Fragment Resources -->
 
     <!-- View App Bar Dimens -->
-    <dimen name="view_app_bar_height">96dp</dimen>
-    <dimen name="app_icon_size">48dp</dimen>
+    <dimen name="view_app_bar_height">104dp</dimen>
+    <dimen name="app_icon_size">40dp</dimen>
     <dimen name="search_icon_size">40dp</dimen>
     <dimen name="user_agent_icon_size">40dp</dimen>
     <dimen name="app_bar_right_margin_small">12dp</dimen>

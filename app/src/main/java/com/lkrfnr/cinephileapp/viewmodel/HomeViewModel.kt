@@ -1,5 +1,7 @@
 package com.lkrfnr.cinephileapp.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.lkrfnr.cinephileapp.network.RetrofitClient
@@ -17,32 +19,35 @@ class HomeViewModel : ViewModel() {
     private var moviePopularBase: MoviePopularBase? = null
     private var searchMovieBase: SearchMovieBase? = null
 
-    private val popularMoviesList : MutableList<MoviePopularResult> = ArrayList()
-    private val searchMovieResultList : MutableList<SearchMovieResult> = ArrayList()
+    var popularMoviesList : MutableLiveData<MutableList<MoviePopularResult>> = MutableLiveData()
+    var searchMovieResultList : MutableLiveData<MutableList<SearchMovieResult>> = MutableLiveData()
+
 
     private var moviePopularRepository: MoviePopularRepository = MoviePopularRepository()
     private var searchMovieRepository : SearchMovieRepository = SearchMovieRepository()
 
-    suspend fun getPopularMovies() : MutableList<MoviePopularResult> {
+    suspend fun getPopularMovies() {
+
+        var list : MutableList<MoviePopularResult> = ArrayList()
 
         moviePopularBase = moviePopularRepository.getPopularMovies()
-
         for( movie in moviePopularBase?.results!!){
-            popularMoviesList.add(movie)
+            list.add(movie)
         }
 
-        return popularMoviesList
+        popularMoviesList.postValue(list)
+
     }
 
-    suspend fun searchMovie(queryStr : String) : MutableList<SearchMovieResult> {
+    suspend fun searchMovie(queryStr : String) : MutableList<SearchMovieResult>? {
 
         searchMovieBase = searchMovieRepository.searchMovie(queryStr)
 
         for (movie in searchMovieBase?.results!!){
-            searchMovieResultList.add(movie)
+            searchMovieResultList.value?.add(movie)
         }
 
-        return  searchMovieResultList
+        return  searchMovieResultList.value
 
     }
 }

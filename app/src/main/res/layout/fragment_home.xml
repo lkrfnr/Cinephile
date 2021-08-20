@@ -17,12 +17,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.viewpager2.widget.ViewPager2
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/popular_contents_view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="5"
                 android:minHeight="@dimen/view_pager_min_height"
-                android:background="@android:color/darker_gray"/>
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"/>
 
         </LinearLayout>
 

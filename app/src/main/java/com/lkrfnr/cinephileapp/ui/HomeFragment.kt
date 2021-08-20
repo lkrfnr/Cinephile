@@ -7,11 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.lkrfnr.cinephileapp.R
 import com.lkrfnr.cinephileapp.databinding.FragmentHomeBinding
 import com.lkrfnr.cinephileapp.network.model.movie.moviepopular.MoviePopularResult
 import com.lkrfnr.cinephileapp.network.model.search.SearchMovieResult
+import com.lkrfnr.cinephileapp.ui.adapter.HomePageViewPagerAdapter
 import com.lkrfnr.cinephileapp.viewmodel.HomeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -23,11 +27,14 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private val TAG : String = "HomeFragment"
 
+    private lateinit var popularMovieObserver: Observer<MutableList<MoviePopularResult>>
+    private lateinit var searchMovieObserver: Observer<MutableList<SearchMovieResult>>
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
@@ -37,29 +44,27 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         // init home view model
         activity?.let { activity ->
             homeViewModel = ViewModelProvider(activity).get(HomeViewModel::class.java)
         } ?: throw AssertionError("Unable to get parent activity from fragment")
 
+        preparePopularContentViewPager()
+
+        homeViewModel.popularMoviesList.observe(viewLifecycleOwner,popularMovieObserver)
+        //homeViewModel.searchMovieResultList.observe(viewLifecycleOwner,searchMovieObserver)
+
         GlobalScope.launch(Dispatchers.IO) {
-            val popularMovies : List<MoviePopularResult>  =  homeViewModel.getPopularMovies()
-
-            for( item in popularMovies )
-                Log.i(TAG, item.title + "\n" + item.posterPath + "\n")
-
-            val searchResultList : List<SearchMovieResult> = homeViewModel.searchMovie("second war")
-
-            Log.i(TAG, "\n" + "---------------------------------------" + "\n")
-
-            for( item in searchResultList)
-                Log.i(TAG, item.title + "\n" + item.poster_path + "\n")
-
+            homeViewModel.getPopularMovies()
+            homeViewModel.searchMovie("second war")
         }
+    }
 
-
-
+    fun preparePopularContentViewPager(){
+        popularMovieObserver = Observer<MutableList<MoviePopularResult>> {
+            Log.i(TAG,"" + it.size)
+            binding.popularContentsViewPager.adapter = HomePageViewPagerAdapter(it)
+        }
     }
 
 }
