@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.widget.ViewPager2
 import com.lkrfnr.cinephileapp.R
 import com.lkrfnr.cinephileapp.databinding.FragmentHomeBinding
 import com.lkrfnr.cinephileapp.network.model.movie.moviepopular.MoviePopularResult
@@ -52,18 +50,18 @@ class HomeFragment : Fragment() {
         preparePopularContentViewPager()
 
         homeViewModel.popularMoviesList.observe(viewLifecycleOwner,popularMovieObserver)
+        homeViewModel.searchMovieResultList.observe(viewLifecycleOwner,searchMovieObserver)
         //homeViewModel.searchMovieResultList.observe(viewLifecycleOwner,searchMovieObserver)
 
         GlobalScope.launch(Dispatchers.IO) {
             homeViewModel.getPopularMovies()
-            homeViewModel.searchMovie("second war")
         }
     }
 
-    fun preparePopularContentViewPager(){
+    private fun preparePopularContentViewPager(){
         popularMovieObserver = Observer<MutableList<MoviePopularResult>> {
             Log.i(TAG,"" + it.size)
-            binding.popularContentsViewPager.adapter = HomePageViewPagerAdapter(it)
+            binding.popularContentsViewPager.adapter = HomePageViewPagerAdapter(it.subList(0,5))
         }
     }
 

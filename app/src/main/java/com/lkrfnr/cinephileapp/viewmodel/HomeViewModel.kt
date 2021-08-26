@@ -28,15 +28,26 @@ class HomeViewModel : ViewModel() {
 
     suspend fun getPopularMovies() {
 
-        var list : MutableList<MoviePopularResult> = ArrayList()
+        val list : MutableList<MoviePopularResult> = ArrayList()
 
-        moviePopularBase = moviePopularRepository.getPopularMovies()
-        for( movie in moviePopularBase?.results!!){
-            list.add(movie)
+
+        moviePopularBase = moviePopularRepository.getPopularMovies(1)
+
+        val totalPages = moviePopularBase?.totalPages
+
+        for ( pageNum in 2..totalPages!! ){
+            moviePopularBase = moviePopularRepository.getPopularMovies(pageNum)
+            addMoviesToList(moviePopularBase, list)
         }
 
         popularMoviesList.postValue(list)
 
+    }
+
+    private fun addMoviesToList(movie:MoviePopularBase?, list : MutableList<MoviePopularResult>){
+        for(  movie in moviePopularBase?.results!!){
+            list.add(movie)
+        }
     }
 
     suspend fun searchMovie(queryStr : String) : MutableList<SearchMovieResult>? {

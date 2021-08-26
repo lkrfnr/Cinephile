@@ -8,6 +8,7 @@
     <ImageView
         android:id="@+id/popular_content_image"
         android:scaleType="centerCrop"
+        android:foreground="@color/black_80"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_width="match_parent"

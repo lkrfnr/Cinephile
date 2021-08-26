@@ -13,13 +13,13 @@ class MoviePopularRepository{
     private val retrofitClient : Retrofit = RetrofitClient.getRetrofitInstance()
     private val popularMoviesService : MoviePopularService = retrofitClient.create(MoviePopularService::class.java)
 
-    suspend fun getPopularMovies():MoviePopularBase?{
+    suspend fun getPopularMovies(page: Int):MoviePopularBase?{
 
         val response = popularMoviesService
                 .getPopularMovies(
                         "71ce169c384af73b056e8a587f006b3a",
                         "en-US",
-                        1)
+                        page)
 
         if(response.isSuccessful){
             return response.body()
