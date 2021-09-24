@@ -12,10 +12,10 @@ class SearchMovieRepository {
     private val retrofitClient : Retrofit = RetrofitClient.getRetrofitInstance()
     private val popularMoviesService : SearchMovieService = retrofitClient.create(SearchMovieService::class.java)
 
-    suspend fun searchMovie(queryStr : String): SearchMovieBase?{
+    suspend fun searchMovie(queryStr : String, pageNum: Int): SearchMovieBase?{
 
         val response = popularMoviesService
-                .searchMovie(apiKey = "71ce169c384af73b056e8a587f006b3a", query = queryStr)
+                .searchMovie(apiKey = "71ce169c384af73b056e8a587f006b3a", query = queryStr, page = pageNum)
 
         if(response.isSuccessful){
             return response.body()
