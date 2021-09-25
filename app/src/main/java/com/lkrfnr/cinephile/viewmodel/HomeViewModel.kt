@@ -43,6 +43,7 @@ class HomeViewModel : ViewModel() {
         val list : MutableList<SearchMovieResult> = ArrayList()
 
         requestAndFillSearchResults(queryStr, 1, list)
+
     }
 
     private suspend fun requestAndFillMovieResults(pageNum: Int, willFilledList : MutableList<MoviePopularResult>){

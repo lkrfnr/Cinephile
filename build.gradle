@@ -9,3 +9,7 @@ buildscript {
         compose_version = '1.0.0'
     }
 }
+
+repositories {
+    mavenCentral()
+}

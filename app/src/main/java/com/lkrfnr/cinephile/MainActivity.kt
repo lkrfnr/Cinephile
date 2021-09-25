@@ -59,6 +59,8 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun BaseLayout(content: @Composable ColumnScope.() -> Unit){
-        Column(modifier = Modifier.fillMaxSize(1f), verticalArrangement = Arrangement.Top, content = content)
+        Column(modifier = Modifier.fillMaxSize(1f),
+            verticalArrangement = Arrangement.Top,
+            content = content)
     }
 }
