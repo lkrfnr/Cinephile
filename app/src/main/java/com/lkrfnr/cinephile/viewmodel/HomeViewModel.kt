@@ -22,7 +22,7 @@ class HomeViewModel : ViewModel() {
     val popularMoviesLiveData: LiveData<List<MoviePopularResult>> = _popularMoviesLiveData
 
     private val _searchMovieResultList : MutableLiveData<List<SearchMovieResult>> = MutableLiveData()
-    val searchMovieResultList:LiveData<List<SearchMovieResult>> = _searchMovieResultList
+    val searchMovieResultList: LiveData<List<SearchMovieResult>> = _searchMovieResultList
 
     private var moviePopularRepository: MoviePopularRepository = MoviePopularRepository()
     private var searchMovieRepository : SearchMovieRepository = SearchMovieRepository()

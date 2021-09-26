@@ -8,8 +8,9 @@ buildscript {
     ext {
         compose_version = '1.0.0'
     }
+
+    repositories {
+        mavenCentral()
+    }
 }
 
-repositories {
-    mavenCentral()
-}
