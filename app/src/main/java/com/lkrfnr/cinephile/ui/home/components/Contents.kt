@@ -16,7 +16,7 @@ import com.lkrfnr.cinephile.ui.theme.searchTextColor
 import com.lkrfnr.cinephile.viewmodel.HomeViewModel
 
 @Composable
-fun PopularMovies(
+fun Contents(
     viewModel: HomeViewModel = viewModel()
 ){
 
@@ -27,13 +27,6 @@ fun PopularMovies(
             vertical = 24.dp
         )
     ){
-
-        val movies = viewModel.moviesState.value
-
-        LazyColumn{
-            items(items = movies){ movie ->
-                Text(text = movie.title, style = TextStyle(color = searchTextColor))
-            }
-        }
+        MoviesRow(movies = viewModel.moviesState.value, "Popular")
     }
 }

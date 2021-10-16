@@ -30,7 +30,7 @@ fun SearchBar() {
     Box(
         modifier = Modifier
             .fillMaxWidth(1f)
-            .requiredHeight(dimensionResource(id = R.dimen.search_bar_height)),
+            .padding(top = 8.dp),
         contentAlignment = Alignment.Center
     ) {
 

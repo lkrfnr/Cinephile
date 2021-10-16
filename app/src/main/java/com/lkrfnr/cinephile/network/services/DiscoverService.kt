@@ -1,5 +1,7 @@
 package com.lkrfnr.cinephile.network.services
 
+import android.content.res.Resources
+import com.lkrfnr.cinephile.R
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -7,7 +9,7 @@ import retrofit2.http.Query
 interface DiscoverService {
 
     @GET("discover/movie")
-    suspend fun discoverMovies(@Query("api_key") apiKey : String,
+    suspend fun discoverMovies(@Query("api_key") apiKey : String = Resources.getSystem().getString(R.string.api_key),
                                @Query("language") language : String = "en-US",
                                @Query("page") page : Int = 1,
                                @Query("sort_by") sortBy : String,

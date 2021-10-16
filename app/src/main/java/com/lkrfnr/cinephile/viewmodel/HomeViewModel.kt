@@ -30,8 +30,8 @@ class HomeViewModel(
     val moviesState: MutableState<List<MoviePopularResult>> = mutableStateOf(emptyList())
     val searchState: MutableState<List<SearchMovieResult>> = mutableStateOf(emptyList())
 
-    val movies: MutableList<MoviePopularResult> = ArrayList()
-    val searchResults: MutableList<SearchMovieResult> = ArrayList()
+    private val movies: MutableList<MoviePopularResult> = ArrayList()
+    private val searchResults: MutableList<SearchMovieResult> = ArrayList()
 
     init {
         getPopularMovies()
@@ -57,6 +57,7 @@ class HomeViewModel(
         }
 
     }
+
 
     fun getSearchResults(queryStr: String, pageNum:Int = 1) {
 

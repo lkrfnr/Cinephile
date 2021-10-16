@@ -31,7 +31,7 @@ fun Greetings(){
 
     Box(modifier = Modifier
         .fillMaxWidth(1f)
-        .padding(horizontal = 20.dp, vertical = 24.dp)
+        .padding(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 24.dp)
     ){
         Row(
             modifier = Modifier.fillMaxWidth(1f),
