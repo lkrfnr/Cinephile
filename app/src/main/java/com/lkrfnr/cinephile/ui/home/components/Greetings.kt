@@ -1,4 +1,4 @@
-package com.lkrfnr.cinephile.ui.composables
+package com.lkrfnr.cinephile.ui.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -25,14 +25,13 @@ import com.lkrfnr.cinephile.ui.theme.profileIconBGColor
 
 @Preview
 @Composable
-fun GreetingsAndProfileIcon(){
+fun Greetings(){
 
     val name = "ilker"
 
     Box(modifier = Modifier
         .fillMaxWidth(1f)
-        .background(color = mainColor)
-        .padding(horizontal = 16.dp, vertical = 24.dp)
+        .padding(horizontal = 20.dp, vertical = 24.dp)
     ){
         Row(
             modifier = Modifier.fillMaxWidth(1f),
@@ -76,9 +75,4 @@ fun GreetingsAndProfileIcon(){
 
     }
 
-}
-
-@Composable
-fun SearchBar(){
-    //TODO Search Bar
 }

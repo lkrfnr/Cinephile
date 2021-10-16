@@ -1,72 +1,77 @@
 package com.lkrfnr.cinephile.viewmodel
 
 import android.content.SharedPreferences
+import android.util.Log
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.lkrfnr.cinephile.network.model.movie.moviepopular.MoviePopularBase
 import com.lkrfnr.cinephile.network.model.movie.moviepopular.MoviePopularResult
 import com.lkrfnr.cinephile.network.model.search.SearchMovieBase
 import com.lkrfnr.cinephile.network.model.search.SearchMovieResult
 import com.lkrfnr.cinephile.repository.MoviePopularRepository
 import com.lkrfnr.cinephile.repository.SearchMovieRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(
+    private val moviePopularRepository: MoviePopularRepository = MoviePopularRepository(),
+    private val searchMovieRepository : SearchMovieRepository = SearchMovieRepository())
+    : ViewModel() {
 
-    private var moviePopularBase: MoviePopularBase? = null
-    private var searchMovieBase: SearchMovieBase? = null
-
-
-    private val _popularMoviesLiveData: MutableLiveData<List<MoviePopularResult>> = MutableLiveData()
-    val popularMoviesLiveData: LiveData<List<MoviePopularResult>> = _popularMoviesLiveData
-
-    private val _searchMovieResultList : MutableLiveData<List<SearchMovieResult>> = MutableLiveData()
-    val searchMovieResultList: LiveData<List<SearchMovieResult>> = _searchMovieResultList
-
-    private var moviePopularRepository: MoviePopularRepository = MoviePopularRepository()
-    private var searchMovieRepository : SearchMovieRepository = SearchMovieRepository()
-
-    suspend fun getPopularMovies() {
+    private val tag : String = "HomeViewModel"
 
 
-        val movieList : MutableList<MoviePopularResult> = ArrayList()
+    val moviesState: MutableState<List<MoviePopularResult>> = mutableStateOf(emptyList())
+    val searchState: MutableState<List<SearchMovieResult>> = mutableStateOf(emptyList())
 
-        requestAndFillMovieResults(1, movieList)
+    val movies: MutableList<MoviePopularResult> = ArrayList()
+    val searchResults: MutableList<SearchMovieResult> = ArrayList()
 
-        _popularMoviesLiveData.postValue(movieList)
-
+    init {
+        getPopularMovies()
     }
 
-    suspend fun searchMovie(queryStr : String) {
+    fun getPopularMovies(pageNum: Int = 1){
 
-        val list : MutableList<SearchMovieResult> = ArrayList()
-
-        requestAndFillSearchResults(queryStr, 1, list)
-
-    }
-
-    private suspend fun requestAndFillMovieResults(pageNum: Int, willFilledList : MutableList<MoviePopularResult>){
-        try {
-            moviePopularBase = moviePopularRepository.getPopularMovies(pageNum)
-            for(  m in moviePopularBase?.results!!){
-                willFilledList.add(m)
+        viewModelScope.launch(Dispatchers.IO) {
+            Log.i(tag, "In getPopularMovies ")
+            try {
+                val moviePopularBase: MoviePopularBase? = moviePopularRepository.getPopularMovies(pageNum)
+                for(  m in moviePopularBase?.results!!){
+                    movies.add(m)
+                }
+            }catch (e:Exception){
+                e.printStackTrace()
             }
-        }catch (e:Exception){
-            e.printStackTrace()
-        }
-    }
 
-    private suspend fun requestAndFillSearchResults(queryStr: String, pageNum:Int, willFilledList: MutableList<SearchMovieResult>) : Int {
-        try {
-            searchMovieBase = searchMovieRepository.searchMovie(queryStr,pageNum)
-            for(m in searchMovieBase?.results!!){
-                willFilledList.add(m)
-            }
-        }catch (e:Exception){
-            e.printStackTrace()
+            moviesState.value = movies
+
+            Log.i(tag, "movies state length ${moviesState.value.size} ")
+
         }
 
-        return searchMovieBase?.total_pages!!
+    }
+
+    fun getSearchResults(queryStr: String, pageNum:Int = 1) {
+
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                val searchMovieBase : SearchMovieBase? = searchMovieRepository.searchMovie(queryStr,pageNum)
+                for(m in searchMovieBase?.results!!){
+                    searchResults.add(m)
+                }
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+
+            searchState.value = searchResults
+
+        }
     }
 }

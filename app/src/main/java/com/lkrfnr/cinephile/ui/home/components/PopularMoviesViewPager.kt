@@ -1,4 +1,4 @@
-package com.lkrfnr.cinephile.ui.composables
+package com.lkrfnr.cinephile.ui.home.components
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -22,10 +23,11 @@ import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.coil.CoilImage
 
 
+@Preview
 @SuppressLint("UseCompatLoadingForDrawables")
 @ExperimentalPagerApi
 @Composable
-fun PopularMoviesViewPager(dataList: List<MoviePopularResult>){
+fun PopularMoviesViewPager(dataList: List<MoviePopularResult> = emptyList()){
 
     val baseUrl = "https://image.tmdb.org/t/p/w500"
 
