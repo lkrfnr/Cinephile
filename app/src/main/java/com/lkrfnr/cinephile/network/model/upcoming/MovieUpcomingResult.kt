@@ -1,6 +1,6 @@
 package com.lkrfnr.cinephile.network.model.upcoming
 
-data class Result(
+data class MovieUpcomingResult(
     val adult: Boolean,
     val backdrop_path: String,
     val genre_ids: List<Int>,

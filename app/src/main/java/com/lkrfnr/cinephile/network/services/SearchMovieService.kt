@@ -2,6 +2,7 @@ package com.lkrfnr.cinephile.network.services
 
 import android.content.res.Resources
 import com.lkrfnr.cinephile.R
+import com.lkrfnr.cinephile.network.model.common.MovieBase
 import com.lkrfnr.cinephile.network.model.search.SearchMovieBase
 import retrofit2.Response
 import retrofit2.http.GET
@@ -15,7 +16,7 @@ interface SearchMovieService {
                             @Query("query") query : String,
                             @Query("page") page : Int = 1,
                             @Query("include_adult") includeAdult : Boolean = false
-    ) : Response<SearchMovieBase>
+    ) : Response<MovieBase>
 
 
 

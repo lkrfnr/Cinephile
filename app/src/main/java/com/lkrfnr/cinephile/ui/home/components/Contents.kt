@@ -1,8 +1,6 @@
 package com.lkrfnr.cinephile.ui.home.components
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
@@ -18,15 +16,18 @@ import com.lkrfnr.cinephile.viewmodel.HomeViewModel
 @Composable
 fun Contents(
     viewModel: HomeViewModel = viewModel()
-){
+) {
 
-    Box(modifier = Modifier
-        .fillMaxSize(1f)
-        .padding(
-            horizontal = 16.dp,
-            vertical = 24.dp
-        )
-    ){
-        MoviesRow(movies = viewModel.moviesState.value, "Popular")
+    Column(
+        modifier = Modifier
+            .fillMaxSize(1f)
+            .padding(
+                vertical = 24.dp
+            ),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        MoviesRow(movies = viewModel.popularMoviesState.value, "Popular")
+        MoviesRow(movies = viewModel.upcomingMoviesState.value, "Upcoming")
     }
+
 }

@@ -27,18 +27,20 @@ import com.skydoves.landscapist.coil.CoilImage
 @SuppressLint("UseCompatLoadingForDrawables")
 @ExperimentalPagerApi
 @Composable
-fun PopularMoviesViewPager(dataList: List<MoviePopularResult> = emptyList()){
+fun PopularMoviesViewPager(dataList: List<MoviePopularResult> = emptyList()) {
 
     val baseUrl = "https://image.tmdb.org/t/p/w500"
 
     val pagerState = rememberPagerState(dataList.size)
 
-    HorizontalPager(state = pagerState,modifier = Modifier.fillMaxWidth(1f)) { page ->
+    HorizontalPager(state = pagerState, modifier = Modifier.fillMaxWidth(1f)) { page ->
 
         val pageItem = dataList[page]
         // Our page content
-        Box(modifier = Modifier
-            .fillMaxWidth(1f)){
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(1f)
+        ) {
 
             CoilImage(
                 imageModel = baseUrl + dataList[page].posterPath,
@@ -58,13 +60,14 @@ fun PopularMoviesViewPager(dataList: List<MoviePopularResult> = emptyList()){
             )
 
             // movie information part
-            Column(modifier = Modifier
-                .fillMaxWidth(1f)
-                .height(100.dp)
-                .align(Alignment.BottomCenter),
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(1f)
+                    .height(100.dp)
+                    .align(Alignment.BottomCenter),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
-            ){
+            ) {
                 Card(
                     shape = cardShapes.medium,
                     elevation = 0.dp,

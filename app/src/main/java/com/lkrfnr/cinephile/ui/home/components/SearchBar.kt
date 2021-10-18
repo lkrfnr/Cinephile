@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -18,11 +17,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.lkrfnr.cinephile.R
 import com.lkrfnr.cinephile.ui.theme.alternativeSearchBarColor
-import com.lkrfnr.cinephile.ui.theme.searchBarColor
 import com.lkrfnr.cinephile.ui.theme.searchTextColor
 
 @Composable
@@ -34,7 +31,7 @@ fun SearchBar() {
         contentAlignment = Alignment.Center
     ) {
 
-        val inputValue = remember{ mutableStateOf(TextFieldValue()) }
+        val inputValue = remember { mutableStateOf(TextFieldValue()) }
 
         Row(
             modifier = Modifier
@@ -44,13 +41,19 @@ fun SearchBar() {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Image(painter = painterResource(id = R.drawable.search),
-                "search icon", Modifier.size(24.dp, 24.dp))
-            TextField(value = inputValue.value,
+            Image(
+                painter = painterResource(id = R.drawable.search),
+                "search icon", Modifier.size(24.dp, 24.dp)
+            )
+            TextField(
+                value = inputValue.value,
                 onValueChange = { inputValue.value = it },
-                label = { Text(text="Search",
-                    color = searchTextColor)
-                        },
+                label = {
+                    Text(
+                        text = "Search",
+                        color = searchTextColor
+                    )
+                },
                 colors = TextFieldDefaults.textFieldColors(
                     textColor = searchTextColor,
                     disabledTextColor = Color.Transparent,
@@ -60,9 +63,11 @@ fun SearchBar() {
                     disabledIndicatorColor = Color.Transparent
                 )
             )
-            Image(painter = painterResource(id = R.drawable.recorder),
+            Image(
+                painter = painterResource(id = R.drawable.recorder),
                 "mic icon",
-                modifier = Modifier.size(24.dp, 24.dp))
+                modifier = Modifier.size(24.dp, 24.dp)
+            )
 
         }
 

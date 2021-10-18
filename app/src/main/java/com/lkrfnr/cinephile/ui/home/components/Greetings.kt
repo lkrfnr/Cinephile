@@ -25,14 +25,15 @@ import com.lkrfnr.cinephile.ui.theme.profileIconBGColor
 
 @Preview
 @Composable
-fun Greetings(){
+fun Greetings() {
 
     val name = "ilker"
 
-    Box(modifier = Modifier
-        .fillMaxWidth(1f)
-        .padding(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 24.dp)
-    ){
+    Box(
+        modifier = Modifier
+            .fillMaxWidth(1f)
+            .padding(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 24.dp)
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(1f),
             verticalAlignment = Alignment.CenterVertically,
@@ -40,15 +41,19 @@ fun Greetings(){
         ) {
 
             // greetings with name
-            Column(verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.Start) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.Start
+            ) {
 
-                Text(text = "Hi, $name !",
+                Text(
+                    text = "Hi, $name !",
                     fontFamily = FontFamily(Font(R.font.lobster_regular)),
                     fontSize = 24.sp,
                     color = Color.White
                 )
-                Text(text = "Find your next movie",
+                Text(
+                    text = "Find your next movie",
                     fontFamily = FontFamily.SansSerif,
                     fontSize = 20.sp,
                     color = Color.White
@@ -56,10 +61,11 @@ fun Greetings(){
             }
 
             // profile icon
-            Box(modifier = Modifier
-                .size(56.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .background(profileIconBGColor),
+            Box(
+                modifier = Modifier
+                    .size(56.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(profileIconBGColor),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
