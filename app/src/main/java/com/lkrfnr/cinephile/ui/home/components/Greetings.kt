@@ -16,12 +16,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lkrfnr.cinephile.R
-import com.lkrfnr.cinephile.ui.theme.mainColor
-import com.lkrfnr.cinephile.ui.theme.profileIconBGColor
+import com.lkrfnr.cinephile.ui.theme.secondMainColor
 
 @Preview
 @Composable
@@ -65,7 +63,7 @@ fun Greetings() {
                 modifier = Modifier
                     .size(56.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(profileIconBGColor),
+                    .background(secondMainColor),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
