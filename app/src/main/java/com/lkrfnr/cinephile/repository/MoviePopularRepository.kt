@@ -3,7 +3,7 @@ package com.lkrfnr.cinephile.repository
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.lkrfnr.cinephile.data.SharedPreferencesManager
+import com.lkrfnr.cinephile.local.SharedPreferencesManager
 import com.lkrfnr.cinephile.network.RetrofitClient
 import com.lkrfnr.cinephile.network.model.common.MovieBase
 import com.lkrfnr.cinephile.network.services.movie.MovieDetailService

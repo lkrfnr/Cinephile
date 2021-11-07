@@ -1,0 +1,25 @@
+ext.versions = [
+        minSdk               : 21,
+        compileSdk           : 31,
+        versionCode          : 1,
+        versionName          : '1.0.0',
+
+        gradleBuildTool      : '7.0.2',
+        spotlessGradle       : '5.15.0',
+        kotlin               : '1.4.32',
+
+        // compose
+        composeVersion       : '1.0.5',
+
+        // dependency injection
+        hiltCoreVersion      : '2.39.1',
+        hiltVersion          : '1.0.0',
+        hiltComposeNavigation: '1.0.0-alpha03',
+
+        // network
+        retrofit      : '2.9.0',
+        okhttp        : '2.5.0',
+
+        // coroutines
+        coroutinesVersion    : '1.5.1',
+]

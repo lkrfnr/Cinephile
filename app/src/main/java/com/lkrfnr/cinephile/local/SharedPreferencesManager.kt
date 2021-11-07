@@ -1,10 +1,7 @@
-package com.lkrfnr.cinephile.data
+package com.lkrfnr.cinephile.local
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
-import org.json.JSONArray
-import java.util.prefs.Preferences
 
 class SharedPreferencesManager{
 
