@@ -10,18 +10,15 @@ import com.lkrfnr.cinephile.network.services.movie.MovieDetailService
 import com.lkrfnr.cinephile.network.services.movie.MoviePopularService
 import retrofit2.Retrofit
 import java.lang.reflect.Type
+import javax.inject.Inject
 
-class MoviePopularRepository {
+class MoviePopularRepository @Inject constructor (
+    private val popularMoviesService: MoviePopularService,
+    private val movieDetailService: MovieDetailService
+) {
 
     private val tag: String = "MoviePopularRepository"
     private val movieBaseType: Type? = object : TypeToken<MovieBase>() {}.type
-    private val retrofitClient: Retrofit = RetrofitClient.getRetrofitInstance()
-    private val popularMoviesService: MoviePopularService = retrofitClient.create(
-        MoviePopularService::class.java
-    )
-    private val movieDetailService: MovieDetailService = retrofitClient.create(
-        MovieDetailService::class.java
-    )
 
 
     suspend fun getPopularMovies(page: Int): MovieBase? {

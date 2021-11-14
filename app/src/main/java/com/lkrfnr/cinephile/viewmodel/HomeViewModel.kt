@@ -10,17 +10,20 @@ import com.lkrfnr.cinephile.network.model.common.MovieResult
 import com.lkrfnr.cinephile.repository.MoviePopularRepository
 import com.lkrfnr.cinephile.repository.MovieUpcomingRepository
 import com.lkrfnr.cinephile.repository.SearchMovieRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(
-    private val moviePopularRepository: MoviePopularRepository = MoviePopularRepository(),
-    private val movieUpcomingRepository: MovieUpcomingRepository = MovieUpcomingRepository(),
-    private val searchMovieRepository: SearchMovieRepository = SearchMovieRepository(),
+
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val moviePopularRepository: MoviePopularRepository,
+    private val movieUpcomingRepository: MovieUpcomingRepository,
+    private val searchMovieRepository: SearchMovieRepository,
 ) : ViewModel() {
 
     private val tag: String = "HomeViewModel"
-
 
     val popularMoviesState: MutableState<List<MovieResult>> = mutableStateOf(emptyList())
     val upcomingMoviesState: MutableState<List<MovieResult>> = mutableStateOf(emptyList())
