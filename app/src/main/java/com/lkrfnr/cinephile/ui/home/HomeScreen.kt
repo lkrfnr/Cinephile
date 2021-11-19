@@ -1,21 +1,24 @@
 package com.lkrfnr.cinephile.ui.home
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import com.lkrfnr.cinephile.ui.home.components.Contents
 import com.lkrfnr.cinephile.ui.home.components.Greetings
 import com.lkrfnr.cinephile.ui.home.components.SearchBar
 import com.lkrfnr.cinephile.ui.theme.mainColor
 
 @Composable
-fun HomeView() {
+fun HomeScreen(navController: NavController) {
     LazyColumn(
         modifier = Modifier
-            .fillMaxWidth(1f)
-            .background(color = mainColor)
+            .fillMaxSize(1f)
+            .background(color = mainColor),
+        verticalArrangement = Arrangement.Top
     ) {
 
         item {
@@ -25,7 +28,7 @@ fun HomeView() {
             SearchBar()
         }
         item {
-            Contents()
+            Contents(navController = navController)
         }
     }
 }

@@ -2,4 +2,14 @@
     <string name="app_name">Cinephile</string>
     <string name="api_key">71ce169c384af73b056e8a587f006b3a</string>
     <string name="poster_base_path">https://image.tmdb.org/t/p/w500</string>
+
+    <!-- Home View String Resources -->
+    <string name="popular_title">Popular</string>
+    <string name="upcoming_title">Upcoming</string>
+
+    <!-- Movie Detail View String Resources -->
+    <string name="movie_detail_title">Movie Detail</string>
+
+
+
 </resources>

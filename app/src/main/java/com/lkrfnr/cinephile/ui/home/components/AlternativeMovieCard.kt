@@ -1,6 +1,7 @@
 package com.lkrfnr.cinephile.ui.home.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -17,19 +18,27 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.google.gson.Gson
 import com.lkrfnr.cinephile.R
 import com.lkrfnr.cinephile.network.model.common.MovieResult
+import com.lkrfnr.cinephile.ui.nav.Screen
 import com.lkrfnr.cinephile.ui.theme.movieCardBackground
 import com.lkrfnr.cinephile.ui.theme.popularMovieCardRateColor
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.coil.CoilImage
 
 @Composable
-fun AlternativeMovieCard(movie: MovieResult) {
+fun AlternativeMovieCard(movie: MovieResult, navController: NavController) {
 
     Card(
         modifier = Modifier
-            .size(320.dp, 180.dp).clip(RoundedCornerShape(12.dp)),
+            .size(320.dp, 180.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .clickable {
+                val movieJsonStr = Gson().toJson(movie)
+                navController.navigate(Screen.MovieDetailScreen.withArgs(movieJsonStr))
+            },
         backgroundColor = movieCardBackground,
     ) {
 

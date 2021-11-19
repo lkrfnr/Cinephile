@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.lkrfnr.cinephile.R
 import com.lkrfnr.cinephile.network.model.common.MovieResult
 import com.lkrfnr.cinephile.ui.theme.cardShapes
@@ -30,7 +31,7 @@ import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.coil.CoilImage
 
 @Composable
-fun MoviesRow(movies: List<MovieResult>, rowTitle: String) {
+fun MoviesRow(movies: List<MovieResult>, rowTitle: String, navController: NavController) {
     Column(
         modifier = Modifier.fillMaxWidth(1f),
         horizontalAlignment = Alignment.Start,
@@ -48,7 +49,7 @@ fun MoviesRow(movies: List<MovieResult>, rowTitle: String) {
         LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             item { Spacer(modifier = Modifier.fillMaxHeight(1f)) }
             items(movies) { movie ->
-                AlternativeMovieCard(movie = movie)
+                AlternativeMovieCard(movie = movie, navController = navController)
             }
         }
 

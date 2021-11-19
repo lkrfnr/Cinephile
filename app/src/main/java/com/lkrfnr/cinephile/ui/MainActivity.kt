@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.lkrfnr.cinephile.ui.home.HomeView
+import com.lkrfnr.cinephile.ui.nav.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         Log.i(tag, "In MainActivity")
 
         setContent {
-            HomeView()
+            Navigation()
         }
     }
 

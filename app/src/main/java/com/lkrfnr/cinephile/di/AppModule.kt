@@ -9,6 +9,7 @@ import com.lkrfnr.cinephile.network.services.movie.MovieUpcomingService
 import com.lkrfnr.cinephile.repository.MoviePopularRepository
 import com.lkrfnr.cinephile.repository.MovieUpcomingRepository
 import com.lkrfnr.cinephile.repository.SearchMovieRepository
+import com.lkrfnr.cinephile.viewmodel.HomeViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -75,6 +76,18 @@ object AppModule {
         searchMovieService: SearchMovieService
     ): SearchMovieRepository {
         return SearchMovieRepository(searchMovieService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideHomeViewModel(
+        moviePopularRepository: MoviePopularRepository,
+        movieUpcomingRepository: MovieUpcomingRepository,
+        searchMovieRepository: SearchMovieRepository,
+    ):HomeViewModel{
+        return HomeViewModel(moviePopularRepository,
+            movieUpcomingRepository,
+            searchMovieRepository)
     }
 
 }
