@@ -14,7 +14,6 @@ import javax.inject.Inject
 
 class MoviePopularRepository @Inject constructor (
     private val popularMoviesService: MoviePopularService,
-    private val movieDetailService: MovieDetailService
 ) {
 
     private val tag: String = "MoviePopularRepository"
@@ -34,17 +33,6 @@ class MoviePopularRepository @Inject constructor (
         }
 
         return response
-    }
-
-    suspend fun getMovieDetail(movieId: String, pageNum: Int): MovieBase {
-        val response = movieDetailService.getMovieDetail(
-            movieId,
-            "71ce169c384af73b056e8a587f006b3a",
-            "en-US",
-            pageNum
-        )
-
-        return response.body() as MovieBase
     }
 
     private suspend fun requestAndSaveResult(pageNum: Int): MovieBase {

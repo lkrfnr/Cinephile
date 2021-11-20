@@ -1,15 +1,15 @@
 package com.lkrfnr.cinephile.di
 
-import android.graphics.Movie
+
 import com.lkrfnr.cinephile.network.RetrofitClient
 import com.lkrfnr.cinephile.network.services.SearchMovieService
+import com.lkrfnr.cinephile.network.services.movie.MovieCreditService
 import com.lkrfnr.cinephile.network.services.movie.MovieDetailService
 import com.lkrfnr.cinephile.network.services.movie.MoviePopularService
 import com.lkrfnr.cinephile.network.services.movie.MovieUpcomingService
-import com.lkrfnr.cinephile.repository.MoviePopularRepository
-import com.lkrfnr.cinephile.repository.MovieUpcomingRepository
-import com.lkrfnr.cinephile.repository.SearchMovieRepository
+import com.lkrfnr.cinephile.repository.*
 import com.lkrfnr.cinephile.viewmodel.HomeViewModel
+import com.lkrfnr.cinephile.viewmodel.MovieDetailViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,11 +55,16 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideMovieCreditService(retrofit: Retrofit): MovieCreditService {
+        return retrofit.create(MovieCreditService::class.java)
+    }
+
+    @Provides
+    @Singleton
     fun provideMoviePopularRepository(
         moviePopularService: MoviePopularService,
-        movieDetailService: MovieDetailService
     ): MoviePopularRepository {
-        return MoviePopularRepository(moviePopularService, movieDetailService)
+        return MoviePopularRepository(moviePopularService)
     }
 
     @Provides
@@ -80,6 +85,22 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideMovieDetailRepository(
+        movieDetailService: MovieDetailService
+    ) : MovieDetailRepository {
+        return MovieDetailRepository(movieDetailService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieCreditRepository(
+        movieCreditService: MovieCreditService
+    ) : MovieCreditRepository {
+        return MovieCreditRepository(movieCreditService)
+    }
+
+    @Provides
+    @Singleton
     fun provideHomeViewModel(
         moviePopularRepository: MoviePopularRepository,
         movieUpcomingRepository: MovieUpcomingRepository,
@@ -89,5 +110,15 @@ object AppModule {
             movieUpcomingRepository,
             searchMovieRepository)
     }
+
+    @Provides
+    @Singleton
+    fun provideMovieDetailViewModel(
+        movieDetailRepository: MovieDetailRepository,
+        movieCreditRepository: MovieCreditRepository
+    ):MovieDetailViewModel{
+        return MovieDetailViewModel(movieDetailRepository, movieCreditRepository)
+    }
+
 
 }

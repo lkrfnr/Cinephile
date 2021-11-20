@@ -4,15 +4,16 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.*
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.lkrfnr.cinephile.viewmodel.HomeViewModel
 
 @Composable
 fun Contents(
     navController: NavController,
 ) {
 
-    // TODO figure out instantiating the view models using dagger hilt
+    val viewModel : HomeViewModel = hiltViewModel()
 
     Column(
         modifier = Modifier

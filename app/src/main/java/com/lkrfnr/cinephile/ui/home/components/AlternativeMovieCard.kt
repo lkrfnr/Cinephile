@@ -36,8 +36,7 @@ fun AlternativeMovieCard(movie: MovieResult, navController: NavController) {
             .size(320.dp, 180.dp)
             .clip(RoundedCornerShape(12.dp))
             .clickable {
-                val movieJsonStr = Gson().toJson(movie)
-                navController.navigate(Screen.MovieDetailScreen.withArgs(movieJsonStr))
+                navController.navigate(Screen.MovieDetailScreen.route)
             },
         backgroundColor = movieCardBackground,
     ) {

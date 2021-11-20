@@ -19,29 +19,21 @@ import com.lkrfnr.cinephile.R
 
 @Composable
 fun ActionBar() {
+
     Box(
         modifier = Modifier
             .fillMaxWidth(1f),
     ) {
 
-        val iconSize: Dp = dimensionResource(id = R.dimen.action_icons_size)
-        val movieDetailTitleStr: String = stringResource(id = R.string.movie_detail_title)
 
+
+        val iconSize: Dp = dimensionResource(id = R.dimen.action_icons_size)
         Image(
             painter = painterResource(id = R.drawable.white_back_arrow),
-            "search icon", Modifier.size(iconSize, iconSize)
+            "back arrow", Modifier.size(iconSize, iconSize)
         )
 
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxWidth(1f)
-        ) {
-            Text(
-                movieDetailTitleStr,
-                fontSize = 24.sp,
-                fontFamily = FontFamily.SansSerif,
-                color = Color.White,
-            )
-        }
+
+
     }
 }
