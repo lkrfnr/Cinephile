@@ -1,36 +1,50 @@
 package com.lkrfnr.cinephile.ui.movie
 
+import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.lkrfnr.cinephile.ui.movie.components.ActionBar
+import com.lkrfnr.cinephile.ui.movie.components.MovieDetailContainer
+import com.lkrfnr.cinephile.ui.movie.components.MoviePosterContainer
+import com.lkrfnr.cinephile.ui.nav.Screen
 import com.lkrfnr.cinephile.ui.theme.mainColor
-import com.lkrfnr.cinephile.viewmodel.HomeViewModel
 import com.lkrfnr.cinephile.viewmodel.MovieDetailViewModel
 
-const val TAG : String  = "MovieDetailScreen"
+const val TAG: String = "MovieDetailScreen"
 
 @Composable
-fun MovieDetailScreen(navController: NavController){
+fun MovieDetailScreen(navController: NavController, movieId: String) {
 
-    val viewModel : MovieDetailViewModel = hiltViewModel()
+    Log.i(TAG, "New movie detail screen opened, movie id $movieId")
 
-    LazyColumn(
+    val movieDetailViewModel: MovieDetailViewModel = hiltViewModel()
+    movieDetailViewModel.getMovieDetail(movieId = movieId)
+    movieDetailViewModel.getMovieCredit(movieId = movieId)
+
+    BackHandler {
+        navController.navigate(Screen.HomeScreen.route) {
+            launchSingleTop = true
+            popUpTo(Screen.HomeScreen.route) { inclusive = false }
+        }
+    }
+
+    Column(
         modifier = Modifier
             .fillMaxSize(1f)
-            .background(color = mainColor)
-            .padding(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 24.dp),
+            .background(color = mainColor),
     ) {
-
-        item{
-            ActionBar()
-        }
-
+        MoviePosterContainer(
+            movieDetailViewModel.movieDetailState.value,
+            navController = navController
+        )
+        MovieDetailContainer(
+            movieDetailState = movieDetailViewModel.movieDetailState.value,
+            movieCreditState = movieDetailViewModel.movieCreditState.value
+        )
     }
 }

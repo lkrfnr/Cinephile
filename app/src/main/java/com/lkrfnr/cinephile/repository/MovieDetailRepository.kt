@@ -9,10 +9,7 @@ class MovieDetailRepository @Inject constructor(
 ) {
 
     suspend fun getMovieDetail(movieId: String): MovieDetailBase {
-        val response = movieDetailService.getMovieDetail(movieId = movieId,
-        apiKey = "71ce169c384af73b056e8a587f006b3a",
-        language = "en-US")
-
+        val response = movieDetailService.getMovieDetail(movieId = movieId)
         return response.body() as MovieDetailBase
     }
 

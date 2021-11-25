@@ -1,16 +1,13 @@
 package com.lkrfnr.cinephile.ui.nav
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.lkrfnr.cinephile.ui.home.HomeScreen
 import com.lkrfnr.cinephile.ui.movie.MovieDetailScreen
-import com.lkrfnr.cinephile.ui.nav.Screen
 
 @Composable
 fun SetupNavigation(navController: NavHostController) {
@@ -20,15 +17,19 @@ fun SetupNavigation(navController: NavHostController) {
             HomeScreen(navController = navController)
         }
         composable(
-            route = Screen.MovieDetailScreen.route,
-            /*arguments = listOf(
-                navArgument("movie_detail_json"){
+            route = Screen.MovieDetailScreen.route + "/{movie_id}",
+            arguments = listOf(
+                navArgument("movie_id"){
                     type = NavType.StringType
-                    nullable = false
+                    nullable = true
                 }
-            )*/
-        ) {
-            MovieDetailScreen(navController = navController, )
+            )
+        ) { entry ->
+            MovieDetailScreen(navController = navController, movieId = entry.arguments?.getString("movie_id") ?: "")
         }
+        /*composable(route = Screen.MovieDetailScreen.route){
+            MovieDetailScreen(navController = navController, movieId = "566525")
+        }*/
+
     }
 }

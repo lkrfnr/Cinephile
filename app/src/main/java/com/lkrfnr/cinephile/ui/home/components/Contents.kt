@@ -23,8 +23,8 @@ fun Contents(
             ),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        MoviesRow(movies = viewModel.popularMoviesState.value, "Popular", navController = navController)
-        MoviesRow(movies = viewModel.upcomingMoviesState.value, "Upcoming", navController = navController)
+        MoviesRow(movies = viewModel.homePopularState.value.popularMovies, "Popular", navController = navController)
+        MoviesRow(movies = viewModel.homeUpcomingState.value.upcomingMovies, "Upcoming", navController = navController)
     }
 
 }

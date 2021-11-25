@@ -19,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.google.gson.Gson
 import com.lkrfnr.cinephile.R
 import com.lkrfnr.cinephile.network.model.common.MovieResult
 import com.lkrfnr.cinephile.ui.nav.Screen
@@ -29,21 +28,23 @@ import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.coil.CoilImage
 
 @Composable
-fun AlternativeMovieCard(movie: MovieResult, navController: NavController) {
+fun MovieCard(movie: MovieResult, navController: NavController) {
 
     Card(
         modifier = Modifier
             .size(320.dp, 180.dp)
             .clip(RoundedCornerShape(12.dp))
             .clickable {
-                navController.navigate(Screen.MovieDetailScreen.route)
+                navController.navigate(Screen.MovieDetailScreen.route + "/${movie.id}"){
+                    launchSingleTop = true
+                }
             },
         backgroundColor = movieCardBackground,
     ) {
 
         Row(Modifier.padding(10.dp)) {
             // movie poster
-            AlternativePosterImageBox(posterImageUrl = movie.posterPath)
+            PosterImageBox(posterImageUrl = movie.posterPath)
 
             // movie details part
             Column(
@@ -62,9 +63,9 @@ fun AlternativeMovieCard(movie: MovieResult, navController: NavController) {
                     )
                 )
                 // movie rate
-                AlternativeMovieRateBox(movieRate = movie.voteAverage.toString())
+                MovieRateBox(movieRate = movie.voteAverage.toString())
                 // movie overview
-                AlternativeMovieOverviewBox(movieOverview = movie.overview)
+                MovieOverviewBox(movieOverview = movie.overview)
             }
         }
 
@@ -73,7 +74,7 @@ fun AlternativeMovieCard(movie: MovieResult, navController: NavController) {
 
 
 @Composable
-fun AlternativeMovieOverviewBox(movieOverview: String) {
+fun MovieOverviewBox(movieOverview: String) {
 
     var summary = ""
     if (movieOverview.length > 110) {
@@ -94,7 +95,7 @@ fun AlternativeMovieOverviewBox(movieOverview: String) {
 }
 
 @Composable
-fun AlternativeMovieRateBox(movieRate: String) {
+fun MovieRateBox(movieRate: String) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -116,7 +117,7 @@ fun AlternativeMovieRateBox(movieRate: String) {
 }
 
 @Composable
-fun AlternativePosterImageBox(posterImageUrl: String) {
+fun PosterImageBox(posterImageUrl: String) {
 
     val baseUrl = "https://image.tmdb.org/t/p/w500"
 

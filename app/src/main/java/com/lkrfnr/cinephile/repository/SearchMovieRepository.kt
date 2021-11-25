@@ -14,7 +14,6 @@ class SearchMovieRepository @Inject constructor(
 
         val response = popularMoviesService
             .searchMovie(
-                apiKey = "71ce169c384af73b056e8a587f006b3a",
                 query = queryStr,
                 page = pageNum
             )

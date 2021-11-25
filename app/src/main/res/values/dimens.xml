@@ -4,5 +4,6 @@
     <dimen name="search_bar_height">72dp</dimen>
     <dimen name="search_bar_rounded_corner">20dp</dimen>
     <dimen name="action_icons_size">24dp</dimen>
+    <dimen name="action_icons_rounded_background_size">48dp</dimen>
 
 </resources>

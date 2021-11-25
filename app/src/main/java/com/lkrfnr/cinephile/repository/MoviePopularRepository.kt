@@ -39,9 +39,7 @@ class MoviePopularRepository @Inject constructor (
 
         val response = popularMoviesService
             .getPopularMovies(
-                "71ce169c384af73b056e8a587f006b3a",
-                "en-US",
-                pageNum
+                page = pageNum
             )
 
         val firstPageResultJson = Gson().toJson(response.body(), movieBaseType)

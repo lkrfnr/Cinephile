@@ -104,11 +104,9 @@ object AppModule {
     fun provideHomeViewModel(
         moviePopularRepository: MoviePopularRepository,
         movieUpcomingRepository: MovieUpcomingRepository,
-        searchMovieRepository: SearchMovieRepository,
     ):HomeViewModel{
         return HomeViewModel(moviePopularRepository,
-            movieUpcomingRepository,
-            searchMovieRepository)
+            movieUpcomingRepository)
     }
 
     @Provides

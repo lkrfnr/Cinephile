@@ -1,37 +1,21 @@
 package com.lkrfnr.cinephile.ui.home.components
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.lkrfnr.cinephile.R
 import com.lkrfnr.cinephile.network.model.common.MovieResult
-import com.lkrfnr.cinephile.ui.theme.cardShapes
-import com.lkrfnr.cinephile.ui.theme.popularMovieCardRateColor
-import com.lkrfnr.cinephile.ui.theme.secondMainColor
-import com.skydoves.landscapist.ShimmerParams
-import com.skydoves.landscapist.coil.CoilImage
 
 @Composable
-fun MoviesRow(movies: List<MovieResult>, rowTitle: String, navController: NavController) {
+fun MoviesRow(movies: List<MovieResult>?, rowTitle: String, navController: NavController) {
     Column(
         modifier = Modifier.fillMaxWidth(1f),
         horizontalAlignment = Alignment.Start,
@@ -48,15 +32,19 @@ fun MoviesRow(movies: List<MovieResult>, rowTitle: String, navController: NavCon
 
         LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             item { Spacer(modifier = Modifier.fillMaxHeight(1f)) }
-            items(movies) { movie ->
-                AlternativeMovieCard(movie = movie, navController = navController)
+
+            movies?.let {
+                items(it) { movie ->
+                    MovieCard(movie = movie, navController = navController)
+                }
             }
+
         }
 
     }
 }
 
-
+/*
 @Composable
 fun MovieCard(movie: MovieResult) {
 
@@ -181,6 +169,6 @@ fun PosterImage(modifier: Modifier, posterImageUrl: String) {
     )
 
 
-}
+}*/
 
 

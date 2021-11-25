@@ -15,9 +15,7 @@ class MovieUpcomingRepository @Inject constructor(
 
         val upcomingBaseResponse: Response<MovieBase> =
             movieUpcomingService.getUpcomingMovies(
-                apiKey = "71ce169c384af73b056e8a587f006b3a",
-                page = page,
-                language = "en-US"
+                page = page
             )
 
         return upcomingBaseResponse.body()
