@@ -1,8 +1,6 @@
 package com.lkrfnr.cinephile.viewmodel
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lkrfnr.cinephile.network.model.common.MovieBase
@@ -13,6 +11,9 @@ import com.lkrfnr.cinephile.viewmodel.state.HomePopularState
 import com.lkrfnr.cinephile.viewmodel.state.HomeUpcomingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,10 +24,15 @@ class HomeViewModel @Inject constructor(
     private val movieUpcomingRepository: MovieUpcomingRepository,
 ) : ViewModel() {
 
-    private val tag: String = "HomeViewModel"
+    private val TAG: String = "HomeViewModel"
 
-    val homePopularState : MutableState<HomePopularState> = mutableStateOf(HomePopularState())
-    val homeUpcomingState : MutableState<HomeUpcomingState> = mutableStateOf(HomeUpcomingState())
+    private var _homePopularState: MutableStateFlow<HomePopularState> =
+        MutableStateFlow(HomePopularState.Loading())
+    val homePopularState: StateFlow<HomePopularState> = _homePopularState
+
+    private var _homeUpcomingState: MutableStateFlow<HomeUpcomingState> =
+        MutableStateFlow(HomeUpcomingState.Loading())
+    val homeUpcomingState: StateFlow<HomeUpcomingState> = _homeUpcomingState
 
     init {
         getPopularMovies()
@@ -35,10 +41,13 @@ class HomeViewModel @Inject constructor(
 
     private fun getPopularMovies(pageNum: Int = 1) {
 
-        viewModelScope.launch(Dispatchers.IO) {
-            Log.i(tag, "In getPopularMovies ")
+        _homePopularState.update {
+            HomePopularState.Loading()
+        }
 
-            val popularMovieResults : MutableList<MovieResult> = ArrayList()
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val popularMovieResults: MutableList<MovieResult> = ArrayList()
 
             try {
                 val moviePopularBase: MovieBase? = moviePopularRepository.getPopularMovies(pageNum)
@@ -47,9 +56,24 @@ class HomeViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+
+                _homePopularState.update {
+                    HomePopularState.Error("Ups!, Error message : ${e.localizedMessage}")
+                }
             }
 
-            homePopularState.value = HomePopularState(popularMovieResults)
+
+            _homePopularState.update {
+                HomePopularState.Success(
+                    popularMovies = popularMovieResults
+                )
+            }
+
+
+            val value = homePopularState.value as HomePopularState.Success
+
+            Log.i(TAG, "${value.popularMovies.size}")
+
 
         }
 
@@ -57,10 +81,13 @@ class HomeViewModel @Inject constructor(
 
     private fun getUpcomingMovies(pageNum: Int = 1) {
 
-        viewModelScope.launch(Dispatchers.IO) {
-            Log.i(tag, "In getPopularMovies ")
+        _homeUpcomingState.update {
+            HomeUpcomingState.Loading()
+        }
 
-            val upcomingMovieResults : MutableList<MovieResult> = ArrayList()
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val upcomingMovieResults: MutableList<MovieResult> = ArrayList()
 
             try {
                 val movieUpcomingBase: MovieBase? =
@@ -70,9 +97,23 @@ class HomeViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+
+                _homeUpcomingState.update {
+                    HomeUpcomingState.Error()
+                }
             }
 
-            homeUpcomingState.value = HomeUpcomingState(upcomingMovieResults)
+            Log.i(TAG, "Data fetched, length of movies list : ${upcomingMovieResults.size}")
+
+            _homeUpcomingState.update {
+                HomeUpcomingState.Success(
+                    upcomingMovies = upcomingMovieResults
+                )
+            }
+
+            val value = homeUpcomingState.value as HomeUpcomingState.Success
+
+            Log.i(TAG, "${value.upcomingMovies.size}")
 
         }
 

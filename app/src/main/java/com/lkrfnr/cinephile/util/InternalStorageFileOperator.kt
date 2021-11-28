@@ -2,18 +2,17 @@ package com.lkrfnr.cinephile.util
 
 import android.content.Context
 import java.io.FileOutputStream
-import java.lang.Exception
 
 class InternalStorageFileOperator {
 
-    fun writeFile(context: Context, content:String){
+    fun writeFile(context: Context, content: String) {
 
         val fileName = "MoviePopularResultJsonFile.json"
 
-        try{
+        try {
             val fileOS: FileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE)
             fileOS.write(content.toByteArray())
-        }catch (e:Exception){
+        } catch (e: Exception) {
 
         }
 

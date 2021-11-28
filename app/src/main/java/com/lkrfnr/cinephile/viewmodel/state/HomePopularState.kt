@@ -2,6 +2,8 @@ package com.lkrfnr.cinephile.viewmodel.state
 
 import com.lkrfnr.cinephile.network.model.common.MovieResult
 
-data class HomePopularState(
-    val popularMovies : List<MovieResult>? = ArrayList()
-)
+sealed class HomePopularState {
+    class Loading(val message: String = "Loading..") : HomePopularState()
+    class Success(val popularMovies: List<MovieResult> = ArrayList()) : HomePopularState()
+    class Error(val errorMessage: String = "Loading..") : HomePopularState()
+}

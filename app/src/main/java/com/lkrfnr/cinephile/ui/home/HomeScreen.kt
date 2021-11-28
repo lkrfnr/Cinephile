@@ -11,16 +11,18 @@ import com.lkrfnr.cinephile.ui.home.components.Contents
 import com.lkrfnr.cinephile.ui.home.components.Greetings
 import com.lkrfnr.cinephile.ui.home.components.SearchBar
 import com.lkrfnr.cinephile.ui.theme.mainColor
+import com.lkrfnr.cinephile.viewmodel.HomeViewModel
+
+private const val TAG: String = "HomeScreen"
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(homeViewModel: HomeViewModel, navController: NavController) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize(1f)
             .background(color = mainColor),
         verticalArrangement = Arrangement.Top
     ) {
-
         item {
             Greetings()
         }
@@ -28,7 +30,7 @@ fun HomeScreen(navController: NavController) {
             SearchBar()
         }
         item {
-            Contents(navController = navController)
+            Contents(homeViewModel = homeViewModel, navController = navController)
         }
     }
 }

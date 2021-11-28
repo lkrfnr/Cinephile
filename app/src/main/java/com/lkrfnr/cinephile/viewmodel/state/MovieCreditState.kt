@@ -1,12 +1,15 @@
 package com.lkrfnr.cinephile.viewmodel.state
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import com.lkrfnr.cinephile.network.model.movie.detail.MovieCreditCast
 import com.lkrfnr.cinephile.network.model.movie.detail.MovieCreditCrew
 
-data class MovieCreditState(
-    val movieId : String? = "",
-    val castList : List<MovieCreditCast>? = ArrayList(),
-    val crewList : List<MovieCreditCrew>? = ArrayList()
-)
+sealed class MovieCreditState : BaseState() {
+    class Loading(val message: String = "Loading..") : MovieCreditState()
+    class Success(
+        val movieId: String = "",
+        val castList: List<MovieCreditCast>? = ArrayList(),
+        val crewList: List<MovieCreditCrew>? = ArrayList()
+    ) : MovieCreditState()
+
+    class Error(val message: String = "Something went wrong") : MovieCreditState()
+}

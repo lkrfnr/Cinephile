@@ -1,9 +1,7 @@
 package com.lkrfnr.cinephile.network.services.movie
 
-import android.content.res.Resources
-import com.lkrfnr.cinephile.R
+import com.lkrfnr.cinephile.common.apiKeyStr
 import com.lkrfnr.cinephile.network.model.movie.moviedetail.MovieDetailBase
-import com.lkrfnr.cinephile.util.apiKeyStr
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

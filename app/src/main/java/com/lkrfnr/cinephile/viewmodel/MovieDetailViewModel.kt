@@ -1,22 +1,20 @@
 package com.lkrfnr.cinephile.viewmodel
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lkrfnr.cinephile.common.movieIdKey
 import com.lkrfnr.cinephile.network.model.movie.detail.MovieCreditBase
-import com.lkrfnr.cinephile.network.model.movie.detail.MovieCreditCast
-import com.lkrfnr.cinephile.network.model.movie.detail.MovieCreditCrew
 import com.lkrfnr.cinephile.network.model.movie.moviedetail.MovieDetailBase
-import com.lkrfnr.cinephile.network.model.movie.moviedetail.MovieDetailGenre
 import com.lkrfnr.cinephile.repository.MovieCreditRepository
 import com.lkrfnr.cinephile.repository.MovieDetailRepository
 import com.lkrfnr.cinephile.viewmodel.state.MovieCreditState
 import com.lkrfnr.cinephile.viewmodel.state.MovieDetailState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,34 +22,41 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
     private val movieDetailRepository: MovieDetailRepository,
-    private val movieCreditRepository: MovieCreditRepository
+    private val movieCreditRepository: MovieCreditRepository,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val TAG: String = "MovieDetailViewModel"
 
-    val movieDetailState : MutableState<MovieDetailState> = mutableStateOf(MovieDetailState())
-    val movieCreditState : MutableState<MovieCreditState> = mutableStateOf(MovieCreditState())
+    private val _movieDetailUiState: MutableStateFlow<MovieDetailState> =
+        MutableStateFlow(MovieDetailState.Loading())
+    val movieDetailUiState: StateFlow<MovieDetailState> = _movieDetailUiState
 
-    private val _movieDetailStateList : MutableList<MovieDetailState> = ArrayList()
-    private val _movieCreditStateList : MutableList<MovieCreditState> = ArrayList()
+    private val _movieCreditUiState: MutableStateFlow<MovieCreditState> =
+        MutableStateFlow(MovieCreditState.Loading())
+    val movieCreditUiState: StateFlow<MovieCreditState> = _movieCreditUiState
 
-    fun getMovieDetail(movieId : String) {
 
-        Log.i(TAG, "Will fetch movie id : $movieId")
-        val cachedMovieDetailState : MovieDetailState? = _movieDetailStateList.find { _movieDetailState -> _movieDetailState.movieId == movieId }
+    init {
+        savedStateHandle.get<String>(movieIdKey)?.let {
+            getMovieDetail(movieId = it)
+            getMovieCredit(movieId = it)
+        }
+    }
 
-        cachedMovieDetailState?.let {
-            Log.i(TAG, "In cached ! ${it.movieId}")
-            movieDetailState.value = it
-            return
+    private fun getMovieDetail(movieId: String) {
+
+        _movieDetailUiState.update {
+            MovieDetailState.Loading()
         }
 
-        viewModelScope.launch(Dispatchers.IO) {
-            Log.i(TAG, "In net request ! $movieId")
-            val movieDetail : MovieDetailBase = movieDetailRepository.getMovieDetail(movieId = movieId)
+        viewModelScope.launch {
+
+            val movieDetail: MovieDetailBase =
+                movieDetailRepository.getMovieDetail(movieId = movieId)
 
             movieDetail.let {
-                val newMovieDetailState = MovieDetailState(
+                val newMovieDetailState = MovieDetailState.Success(
                     it.id.toString(),
                     it.posterPath,
                     it.originalTitle,
@@ -60,40 +65,42 @@ class MovieDetailViewModel @Inject constructor(
                     it.runtime.toString(),
                     it.genres
                 )
-                _movieDetailStateList.add(newMovieDetailState)
-                movieDetailState.value = newMovieDetailState
+
+                Log.i(TAG, "New movie title : ${it.originalTitle}")
+
+                _movieDetailUiState.update {
+                    newMovieDetailState
+                }
             }
         }
-
-
     }
 
-    fun getMovieCredit(movieId : String) {
+    private fun getMovieCredit(movieId: String) {
 
-        val cachedMovieCreditState : MovieCreditState? = _movieCreditStateList.find { _movieCreditState -> _movieCreditState.movieId == movieId }
-
-        cachedMovieCreditState?.let {
-            movieCreditState.value = it
-            return
+        _movieCreditUiState.update {
+            MovieCreditState.Loading()
         }
 
-        viewModelScope.launch(Dispatchers.IO ){
+        viewModelScope.launch {
 
-            val movieCredit : MovieCreditBase = movieCreditRepository.getMovieCredit(movieId = movieId)
+            val movieCredit: MovieCreditBase =
+                movieCreditRepository.getMovieCredit(movieId = movieId)
+
+
 
             movieCredit.let {
-                val newMovieCreditState = MovieCreditState(
+                val newMovieCreditState = MovieCreditState.Success(
                     it.id.toString(),
                     it.movieCreditCast,
                     it.movieCreditCrew
                 )
-                _movieCreditStateList.add(newMovieCreditState)
-                movieCreditState.value = newMovieCreditState
-            }
 
+                _movieCreditUiState.update {
+                    newMovieCreditState
+                }
+
+            }
         }
 
     }
-
-
 }

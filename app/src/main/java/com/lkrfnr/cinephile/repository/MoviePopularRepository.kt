@@ -4,11 +4,8 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.lkrfnr.cinephile.local.SharedPreferencesManager
-import com.lkrfnr.cinephile.network.RetrofitClient
 import com.lkrfnr.cinephile.network.model.common.MovieBase
-import com.lkrfnr.cinephile.network.services.movie.MovieDetailService
 import com.lkrfnr.cinephile.network.services.movie.MoviePopularService
-import retrofit2.Retrofit
 import java.lang.reflect.Type
 import javax.inject.Inject
 
@@ -37,15 +34,18 @@ class MoviePopularRepository @Inject constructor (
 
     private suspend fun requestAndSaveResult(pageNum: Int): MovieBase {
 
-        val response = popularMoviesService
-            .getPopularMovies(
-                page = pageNum
-            )
+            val response = popularMoviesService
+                .getPopularMovies(
+                    page = pageNum
+                )
 
-        val firstPageResultJson = Gson().toJson(response.body(), movieBaseType)
-        SharedPreferencesManager.saveFirstPageResultJson(firstPageResultJson)
+            Log.i(tag, "Request Finished !")
 
-        return response.body() as MovieBase
+            val firstPageResultJson = Gson().toJson(response.body(), movieBaseType)
+            SharedPreferencesManager.saveFirstPageResultJson(firstPageResultJson)
+
+            return response.body() as MovieBase
+
     }
 
 }

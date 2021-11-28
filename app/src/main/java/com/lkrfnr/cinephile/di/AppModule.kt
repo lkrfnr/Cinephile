@@ -8,15 +8,11 @@ import com.lkrfnr.cinephile.network.services.movie.MovieDetailService
 import com.lkrfnr.cinephile.network.services.movie.MoviePopularService
 import com.lkrfnr.cinephile.network.services.movie.MovieUpcomingService
 import com.lkrfnr.cinephile.repository.*
-import com.lkrfnr.cinephile.viewmodel.HomeViewModel
-import com.lkrfnr.cinephile.viewmodel.MovieDetailViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import javax.annotation.Signed
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
@@ -87,7 +83,7 @@ object AppModule {
     @Singleton
     fun provideMovieDetailRepository(
         movieDetailService: MovieDetailService
-    ) : MovieDetailRepository {
+    ): MovieDetailRepository {
         return MovieDetailRepository(movieDetailService)
     }
 
@@ -95,27 +91,8 @@ object AppModule {
     @Singleton
     fun provideMovieCreditRepository(
         movieCreditService: MovieCreditService
-    ) : MovieCreditRepository {
+    ): MovieCreditRepository {
         return MovieCreditRepository(movieCreditService)
-    }
-
-    @Provides
-    @Singleton
-    fun provideHomeViewModel(
-        moviePopularRepository: MoviePopularRepository,
-        movieUpcomingRepository: MovieUpcomingRepository,
-    ):HomeViewModel{
-        return HomeViewModel(moviePopularRepository,
-            movieUpcomingRepository)
-    }
-
-    @Provides
-    @Singleton
-    fun provideMovieDetailViewModel(
-        movieDetailRepository: MovieDetailRepository,
-        movieCreditRepository: MovieCreditRepository
-    ):MovieDetailViewModel{
-        return MovieDetailViewModel(movieDetailRepository, movieCreditRepository)
     }
 
 

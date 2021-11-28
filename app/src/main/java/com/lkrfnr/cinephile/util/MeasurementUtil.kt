@@ -13,8 +13,8 @@ object MeasurementUtil {
         return px / (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
     }
 
-    fun getDeviceWidth(context: Context){
-        var displayMetrics : DisplayMetrics = DisplayMetrics()
+    fun getDeviceWidth(context: Context) {
+        var displayMetrics: DisplayMetrics = DisplayMetrics()
     }
 
     fun getWidth(): Int {

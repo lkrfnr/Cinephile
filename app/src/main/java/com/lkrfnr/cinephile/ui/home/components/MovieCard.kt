@@ -1,5 +1,6 @@
 package com.lkrfnr.cinephile.ui.home.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -27,6 +29,8 @@ import com.lkrfnr.cinephile.ui.theme.popularMovieCardRateColor
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.coil.CoilImage
 
+private const val TAG = "MovieCard"
+
 @Composable
 fun MovieCard(movie: MovieResult, navController: NavController) {
 
@@ -35,7 +39,10 @@ fun MovieCard(movie: MovieResult, navController: NavController) {
             .size(320.dp, 180.dp)
             .clip(RoundedCornerShape(12.dp))
             .clickable {
-                navController.navigate(Screen.MovieDetailScreen.route + "/${movie.id}"){
+
+                Log.i(TAG, "Before routing, movieId : ${movie.id}")
+
+                navController.navigate(Screen.MovieDetailScreen.route + "/${movie.id}") {
                     launchSingleTop = true
                 }
             },
@@ -76,18 +83,12 @@ fun MovieCard(movie: MovieResult, navController: NavController) {
 @Composable
 fun MovieOverviewBox(movieOverview: String) {
 
-    var summary = ""
-    if (movieOverview.length > 110) {
-        summary = movieOverview.subSequence(0, 110) as String
-        summary = summary.subSequence(0, summary.lastIndexOf(" ")) as String
-    }
-
-    summary = summary.plus("...")
-
     Row(verticalAlignment = Alignment.Bottom) {
         // movie overview
         Text(
-            text = summary,
+            text = movieOverview,
+            maxLines = 3,
+            overflow = TextOverflow.Ellipsis,
             style = TextStyle(fontSize = 12.sp, color = Color.White)
         )
     }

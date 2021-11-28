@@ -1,8 +1,8 @@
 package com.lkrfnr.cinephile.ui.movie.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,39 +34,51 @@ const val TAG: String = "MoviePosterContainer"
 
 @Composable
 fun MovieDetailContainer(movieDetailState: MovieDetailState, movieCreditState: MovieCreditState) {
-    LazyColumn(
+
+    Column(
         modifier = Modifier.fillMaxSize(1f),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        item {
-            Text(
-                "Fight Club",
-                modifier = Modifier.padding(vertical = 16.dp),
-                style = TextStyle(
-                    color = snowWhite,
-                    fontSize = 20.sp,
-                    fontFamily = FontFamily.Default,
-                    fontWeight = FontWeight.W500
+        // Movie Details
+        when (movieDetailState) {
+            is MovieDetailState.Loading -> { /* TODO Loading view */
+            }
+            is MovieDetailState.Success -> {
+                Text(
+                    movieDetailState.originalTitle ?: "",
+                    modifier = Modifier.padding(vertical = 16.dp),
+                    style = TextStyle(
+                        color = snowWhite,
+                        fontSize = 20.sp,
+                        fontFamily = FontFamily.Default,
+                        fontWeight = FontWeight.W500
+                    )
                 )
-            )
+
+                DetailRow(
+                    releaseDate = movieDetailState.releaseDate,
+                    genres = movieDetailState.genres,
+                    runtime = movieDetailState.runtime
+                )
+
+                OverviewText(overview = movieDetailState.overview)
+
+            }
+            is MovieDetailState.Error -> { /* TODO Loading view */
+            }
         }
 
-        item {
-            DetailRow(
-                releaseDate = movieDetailState.releaseDate,
-                genres = movieDetailState.genres,
-                runtime = movieDetailState.runtime
-            )
-        }
-
-        item {
-            OverviewText(overview = movieDetailState.overview)
-        }
-
-        item {
-            CastRow(castList = movieCreditState.castList)
+        // Movie Credits
+        when (movieCreditState) {
+            is MovieCreditState.Loading -> { /* TODO Loading view */
+            }
+            is MovieCreditState.Success -> {
+                CastRow(castList = movieCreditState.castList)
+            }
+            is MovieCreditState.Error -> { /* TODO Loading view */
+            }
         }
 
 
@@ -76,7 +88,7 @@ fun MovieDetailContainer(movieDetailState: MovieDetailState, movieCreditState: M
 @Composable
 fun CastRow(castList: List<MovieCreditCast>?) {
 
-    // Log.i(TAG, "CastList size : ${castList?.size}")
+    Log.i(TAG, "CastList size : ${castList?.size}")
 
     castList?.let {
         LazyRow(modifier = Modifier.fillMaxWidth(1f)) {

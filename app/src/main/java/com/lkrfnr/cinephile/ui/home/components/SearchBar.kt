@@ -70,7 +70,5 @@ fun SearchBar() {
             )
 
         }
-
-
     }
 }
