@@ -71,8 +71,7 @@ fun PopularMoviesRow(homePopularState: HomePopularState, navController: NavContr
 fun UpcomingMoviesRow(homeUpcomingState: HomeUpcomingState, navController: NavController) {
 
     when (homeUpcomingState) {
-        is HomeUpcomingState.Loading -> { /*TODO loading view*/
-        }
+        is HomeUpcomingState.Loading -> { }
         is HomeUpcomingState.Success -> {
             MoviesRow(
                 movies = homeUpcomingState.upcomingMovies,
@@ -80,7 +79,6 @@ fun UpcomingMoviesRow(homeUpcomingState: HomeUpcomingState, navController: NavCo
                 navController = navController
             )
         }
-        is HomeUpcomingState.Error -> { /*TODO loading view*/
-        }
+        is HomeUpcomingState.Error -> { }
     }
 }

@@ -17,12 +17,10 @@ class SharedPreferencesManager {
         }
 
         fun saveFirstPageResultJson(result: String) {
-            //Log.i("MoviePopularRepository", "In save $result")
             sharedPreferencesEditor?.putString(firstPageResultKey, result)?.apply()
         }
 
         fun getFirstPageResultJson(): String? {
-            //Log.i("MoviePopularRepository", sharedPreferences?.getString(firstPageResultKey,"").toString())
             return sharedPreferences?.getString(firstPageResultKey, "")
         }
 

@@ -19,8 +19,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.i(tag, "In MainActivity")
-
         setContent {
             navController = rememberNavController()
             SetupNavigation(navController)

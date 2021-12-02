@@ -12,9 +12,6 @@ import com.lkrfnr.cinephile.R
 private val Lobster = FontFamily(
     Font(R.font.lobster_regular, FontWeight.Normal)
 )
-// Set of Material typography styles to start with
-
-
 
 val Typography = Typography(
     body1 = TextStyle(
@@ -22,16 +19,4 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     )
-    /* Other default text styles to override
-    button = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
-    ),
-    caption = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
-    )
-    */
 )
