@@ -22,11 +22,11 @@ Cinephile Preview
 
 **Home Screen**
 
-![home-screen-view](home_screen_view.jpg | width=100 "Home Screen")
+![home-screen-view](home_screen_view.jpg =108x240 "Home Screen")
 
 **Movie Detail Screen**
 
-![movie-detail-screen-view-1](movie_detail_screen_view_1.jpg  | width=100 "Movie Detail Screen 1" ) ![movie-detail-screen-view-2](movie_detail_screen_view_2.jpg | width=100 "Movie Detail Screen 2" )
+![movie-detail-screen-view-1](movie_detail_screen_view_1.jpg  =108x240 "Movie Detail Screen 1" ) ![movie-detail-screen-view-2](movie_detail_screen_view_2.jpg =108x240 "Movie Detail Screen 2" )
 
 
 
