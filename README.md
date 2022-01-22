@@ -10,6 +10,7 @@ Tech Stack of the Cinephile
 * Retrofit2
 * Dagger-Hilt
 * MVVM Pattern
+* Coil
 
 Content Resource
 ----------------
